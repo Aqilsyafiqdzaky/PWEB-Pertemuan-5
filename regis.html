@@ -1,84 +1,102 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>List Barang Elektronik</title>
-  <link rel="stylesheet" href="style.css">
+<head> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Form Registrasi</title>
 </head>
 <body>
+    <h1>Form Registrasi Mahasiswa</h1>
 
-      <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="regis.html">Form Registrasi</a>
-    <a href="kodePos.html">Pencarian Kode Pos</a>
-    <a href="list.html">List Barang Elektronik</a>
-  </div>
+    <div class="regis-container">
+        <form method="post" action="">
+            <table>
+                <tr>
+                    <td>Nama Mahasiswa</td>
+                    <td>
+                        <input type="text" id="nama" name="nama" placeholder="Masukkan nama">
+                        <div id="suggestions" class="autocomplete-suggestions"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>NIM</td>
+                    <td><input type="text" name="nim" placeholder="Masukkan NIM"></td>
+                </tr>
+                <tr>
+                    <td>Mata Kuliah</td>
+                    <td>
+                        <select name="matkul">
+                            <option value="PWEB">Pemrograman Web</option>
+                            <option value="PBO">Pemrograman Berbasis Objek</option>
+                            <option value="SBD">Sistem Basis Data</option>
+                            <option value="AI">Kecerdasan Buatan</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dosen</td>
+                    <td>
+                        <select name="dosen">
+                            <option value="Pak Fajar Baskoro">Pak Fajar Baskoro</option>
+                            <option value="Bu Sari">Bu Shintami</option>
+                            <option value="Pak Budi">Pak Budi</option>
+                            <option value="Bu Dina">Bu Dina</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="form-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
-  <div class="container">
-    <h2>Pilih Barang Elektronik</h2>
+    <script>
+        const namaInput = document.getElementById("nama");
+        const suggestionsBox = document.getElementById("suggestions");
 
-    <label for="barang">Barang Elektronik</label>
-    <select id="barang">
-      <option value="">-- Pilih Barang --</option>
-    </select>
+        // Daftar nama mahasiswa
+        const namaMahasiswa = [
+            "Aqil Dzaky",
+            "Budi Santoso",
+            "Citra Maharani",
+            "Dewi Lestari",
+            "Eko Prasetyo",
+            "Fajar Nugroho",
+            "Gita Anggraini",
+            "Hendra Wijaya"
+        ];
 
-    <label for="merek">Merek</label>
-    <select id="merek" disabled>
-      <option value="">-- Pilih Merek --</option>
-    </select>
+        namaInput.addEventListener("input", function() {
+            const query = this.value.toLowerCase();
+            suggestionsBox.innerHTML = "";
 
-    <div id="result"></div>
-  </div>
+            if (query.length === 0) return;
 
-  <script>
-    // Data barang dan merek
-    const dataBarang = {
-      "Laptop": ["Asus", "Acer", "Lenovo", "HP", "Apple"],
-      "Smartphone": ["Samsung", "Xiaomi", "Apple", "Oppo", "Vivo"],
-      "TV": ["LG", "Samsung", "Sony", "Polytron", "Panasonic"],
-      "Kulkas": ["Sharp", "LG", "Toshiba", "Panasonic", "Polytron"]
-    };
+            const filtered = namaMahasiswa.filter(nama => 
+                nama.toLowerCase().includes(query)
+            );
 
-    const barangSelect = document.getElementById("barang");
-    const merekSelect = document.getElementById("merek");
-    const resultDiv = document.getElementById("result");
-
-    // Isi dropdown barang
-    for (let barang in dataBarang) {
-      let opt = document.createElement("option");
-      opt.value = barang;
-      opt.textContent = barang;
-      barangSelect.appendChild(opt);
-    }
-
-    // Event pilih barang
-    barangSelect.addEventListener("change", function() {
-      merekSelect.innerHTML = '<option value="">-- Pilih Merek --</option>';
-      resultDiv.innerHTML = "";
-
-      if (this.value) {
-        merekSelect.disabled = false;
-        const merekList = dataBarang[this.value];
-        merekList.forEach(m => {
-          let opt = document.createElement("option");
-          opt.value = m;
-          opt.textContent = m;
-          merekSelect.appendChild(opt);
+            filtered.forEach(nama => {
+                const div = document.createElement("div");
+                div.textContent = nama;
+                div.addEventListener("click", function() {
+                    namaInput.value = nama;
+                    suggestionsBox.innerHTML = "";
+                });
+                suggestionsBox.appendChild(div);
+            });
         });
-      } else {
-        merekSelect.disabled = true;
-      }
-    });
 
-    // Event pilih merek
-    merekSelect.addEventListener("change", function() {
-      if (this.value) {
-        resultDiv.innerHTML = `<strong>Barang:</strong> ${barangSelect.value} <br> 
-                               <strong>Merek:</strong> ${this.value}`;
-      } else {
-        resultDiv.innerHTML = "";
-      }
-    });
-  </script>
+        // Menutup suggestion jika klik di luar
+        document.addEventListener("click", function(e) {
+            if (e.target !== namaInput) {
+                suggestionsBox.innerHTML = "";
+            }
+        });
+    </script>
 </body>
 </html>
