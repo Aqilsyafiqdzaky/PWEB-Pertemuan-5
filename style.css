@@ -1,10 +1,10 @@
-/* ==================== RESET ==================== */
+/* Reset default margin */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-/* ==================== NAVBAR ==================== */
+/* Navbar */
 .navbar {
   background-color: #333;
   overflow: hidden;
@@ -25,7 +25,7 @@ body {
   color: black;
 }
 
-/* ==================== KONTEN UMUM ==================== */
+/* Konten utama */
 .content {
   padding: 20px;
   text-align: center;
@@ -45,7 +45,64 @@ body {
   font-size: 16px;
 }
 
-/* ==================== FORM REGISTRASI ==================== */
+/* Styling untuk halaman Kode Pos */
+.container {
+  width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.container label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.container select,
+.container button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.container button {
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.container button:hover {
+  background-color: #555;
+}
+
+#result {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+/* Styling untuk Form Registrasi */
 .regis-container {
   width: 500px;
   margin: 30px auto;
@@ -115,65 +172,8 @@ body {
   background: #f0f0f0;
 }
 
-/* ==================== HALAMAN KODE POS ==================== */
-.kodepos-container {
-  width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.kodepos-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.kodepos-container label {
-  display: block;
-  margin: 10px 0 5px;
-  font-weight: bold;
-  text-align: left;
-}
-
-.kodepos-container select,
-.kodepos-container button {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.kodepos-container button {
-  background-color: #333;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.kodepos-container button:hover {
-  background-color: #555;
-}
-
-.kodepos-result {
-  margin-top: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 4px;
-  text-align: left;
-}
-
-.error {
-  color: red;
-  font-weight: bold;
-}
-
-/* ==================== HALAMAN LIST BARANG ==================== */
-.list-container {
+/* Styling untuk halaman List Barang Elektronik */
+.container {
   width: 400px;
   margin: 30px auto;
   padding: 20px;
@@ -182,20 +182,20 @@ body {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.list-container h2 {
+.container h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
 }
 
-.list-container label {
+.container label {
   display: block;
   margin: 10px 0 5px;
   font-weight: bold;
   text-align: left;
 }
 
-.list-container select {
+.container select {
   width: 100%;
   padding: 10px;
   margin-bottom: 12px;
@@ -203,7 +203,7 @@ body {
   border-radius: 4px;
 }
 
-.list-result {
+#result {
   margin-top: 15px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -211,3 +211,6 @@ body {
   border-radius: 4px;
   text-align: left;
 }
+ 
+
+
