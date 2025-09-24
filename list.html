@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>List Barang Elektronik</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+      <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="regis.html">Form Registrasi</a>
+    <a href="kodePos.html">Pencarian Kode Pos</a>
+    <a href="list.html">List Barang Elektronik</a>
+  </div>
+
+  <div class="container">
+    <h2>Pilih Barang Elektronik</h2>
+
+    <label for="barang">Barang Elektronik</label>
+    <select id="barang">
+      <option value="">-- Pilih Barang --</option>
+    </select>
+
+    <label for="merek">Merek</label>
+    <select id="merek" disabled>
+      <option value="">-- Pilih Merek --</option>
+    </select>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Data barang dan merek
+    const dataBarang = {
+      "Laptop": ["Asus", "Acer", "Lenovo", "HP", "Apple"],
+      "Smartphone": ["Samsung", "Xiaomi", "Apple", "Oppo", "Vivo"],
+      "TV": ["LG", "Samsung", "Sony", "Polytron", "Panasonic"],
+      "Kulkas": ["Sharp", "LG", "Toshiba", "Panasonic", "Polytron"]
+    };
+
+    const barangSelect = document.getElementById("barang");
+    const merekSelect = document.getElementById("merek");
+    const resultDiv = document.getElementById("result");
+
+    // Isi dropdown barang
+    for (let barang in dataBarang) {
+      let opt = document.createElement("option");
+      opt.value = barang;
+      opt.textContent = barang;
+      barangSelect.appendChild(opt);
+    }
+
+    // Event pilih barang
+    barangSelect.addEventListener("change", function() {
+      merekSelect.innerHTML = '<option value="">-- Pilih Merek --</option>';
+      resultDiv.innerHTML = "";
+
+      if (this.value) {
+        merekSelect.disabled = false;
+        const merekList = dataBarang[this.value];
+        merekList.forEach(m => {
+          let opt = document.createElement("option");
+          opt.value = m;
+          opt.textContent = m;
+          merekSelect.appendChild(opt);
+        });
+      } else {
+        merekSelect.disabled = true;
+      }
+    });
+
+    // Event pilih merek
+    merekSelect.addEventListener("change", function() {
+      if (this.value) {
+        resultDiv.innerHTML = `<strong>Barang:</strong> ${barangSelect.value} <br> 
+                               <strong>Merek:</strong> ${this.value}`;
+      } else {
+        resultDiv.innerHTML = "";
+      }
+    });
+  </script>
+</body>
+</html>

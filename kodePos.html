@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pencarian Kode Pos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+        <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="regis.html">Form Registrasi</a>
+    <a href="kodePos.html">Pencarian Kode Pos</a>
+    <a href="list.html">List Barang Elektronik</a>
+  </div>
+  
+  <div class="container">
+    <h2>Pencarian Kode Pos Indonesia</h2>
+
+    <label for="provinsi">Provinsi</label>
+    <select id="provinsi">
+      <option value="">-- Pilih Provinsi --</option>
+    </select>
+
+    <label for="kota">Kabupaten/Kota</label>
+    <select id="kota" disabled>
+      <option value="">-- Pilih Kota --</option>
+    </select>
+
+    <label for="kecamatan">Kecamatan</label>
+    <select id="kecamatan" disabled>
+      <option value="">-- Pilih Kecamatan --</option>
+    </select>
+
+    <button id="cari">Cari Kode Pos</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Data contoh (bisa diperluas)
+    const dataKodePos = {
+      "Jawa Barat": {
+        "Bandung": {
+          "Coblong": { kode: "40132", info: "Kecamatan Coblong, Kota Bandung, Jawa Barat" },
+          "Cicendo": { kode: "40175", info: "Kecamatan Cicendo, Kota Bandung, Jawa Barat" }
+        },
+        "Bogor": {
+          "Bogor Tengah": { kode: "16121", info: "Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat" },
+          "Bogor Utara": { kode: "16152", info: "Kecamatan Bogor Utara, Kota Bogor, Jawa Barat" }
+        }
+      },
+      "DKI Jakarta": {
+        "Jakarta Selatan": {
+          "Kebayoran Baru": { kode: "12120", info: "Kecamatan Kebayoran Baru, Jakarta Selatan, DKI Jakarta" },
+          "Pasar Minggu": { kode: "12510", info: "Kecamatan Pasar Minggu, Jakarta Selatan, DKI Jakarta" }
+        },
+        "Jakarta Timur": {
+          "Cakung": { kode: "13910", info: "Kecamatan Cakung, Jakarta Timur, DKI Jakarta" },
+          "Matraman": { kode: "13110", info: "Kecamatan Matraman, Jakarta Timur, DKI Jakarta" }
+        }
+      }
+    };
+
+    const provinsiSelect = document.getElementById("provinsi");
+    const kotaSelect = document.getElementById("kota");
+    const kecamatanSelect = document.getElementById("kecamatan");
+    const resultDiv = document.getElementById("result");
+
+    // Isi dropdown provinsi
+    for (let prov in dataKodePos) {
+      let opt = document.createElement("option");
+      opt.value = prov;
+      opt.textContent = prov;
+      provinsiSelect.appendChild(opt);
+    }
+
+    // Event pilih provinsi
+    provinsiSelect.addEventListener("change", function() {
+      kotaSelect.innerHTML = '<option value="">-- Pilih Kota --</option>';
+      kecamatanSelect.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+      kecamatanSelect.disabled = true;
+      resultDiv.innerHTML = "";
+
+      if (this.value) {
+        kotaSelect.disabled = false;
+        for (let kota in dataKodePos[this.value]) {
+          let opt = document.createElement("option");
+          opt.value = kota;
+          opt.textContent = kota;
+          kotaSelect.appendChild(opt);
+        }
+      } else {
+        kotaSelect.disabled = true;
+      }
+    });
+
+    // Event pilih kota
+    kotaSelect.addEventListener("change", function() {
+      kecamatanSelect.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+      resultDiv.innerHTML = "";
+
+      if (this.value) {
+        kecamatanSelect.disabled = false;
+        const prov = provinsiSelect.value;
+        for (let kec in dataKodePos[prov][this.value]) {
+          let opt = document.createElement("option");
+          opt.value = kec;
+          opt.textContent = kec;
+          kecamatanSelect.appendChild(opt);
+        }
+      } else {
+        kecamatanSelect.disabled = true;
+      }
+    });
+
+    // Event tombol cari
+    document.getElementById("cari").addEventListener("click", function() {
+      const prov = provinsiSelect.value;
+      const kota = kotaSelect.value;
+      const kec = kecamatanSelect.value;
+
+      if (prov && kota && kec) {
+        const data = dataKodePos[prov][kota][kec];
+        resultDiv.innerHTML = `<strong>Kode Pos:</strong> ${data.kode}<br><strong>Info:</strong> ${data.info}`;
+      } else {
+        resultDiv.innerHTML = "<span class='error'>Lengkapi pilihan terlebih dahulu!</span>";
+      }
+    });
+  </script>
+</body>
+</html>
